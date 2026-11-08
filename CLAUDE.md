@@ -42,3 +42,17 @@ dotnet run --project src/WordLoop.ContentGen -- --help
 - Telegram CloudStorage: ключ ≤128 символов `[A-Za-z0-9_-]`, значение ≤4096 символов, ≤1024 ключей. API асинхронный, на колбэках — оборачивай в `Task` в интеропе.
 - Тримминг Blazor может вырезать типы, используемые через рефлексию (в т.ч. в `System.Text.Json`) — используй source-generated `JsonSerializerContext`.
 - В браузере Telegram Desktop и мобильных WebView ведут себя по-разному (голоса Web Speech, скачивание файлов) — проверяй на обоих, если задача касается этих API.
+
+## Agent skills
+
+### Issue tracker
+
+Задачи ведутся в GitHub Issues репозитория `dem-in/WordLoop` (через `gh`). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Стандартные метки: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` и `docs/adr/` в корне. See `docs/agents/domain.md`.
