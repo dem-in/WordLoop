@@ -241,7 +241,7 @@ WordLoop — Telegram Mini App для заучивания английской 
 
 ## 10. Технический стек и структура
 
-- .NET 10, Blazor WebAssembly (standalone), тримминг включён. AOT — по результатам замера на срезе 1.
+- .NET 10, Blazor WebAssembly (standalone), тримминг включён, AOT не используется (замер на срезе 1, `docs/adr/0001-blazor-wasm-stack.md`).
 - Telegram Web App JS SDK — через тонкий слой JS-интеропа в `WordLoop.Web/Interop`.
 - Хостинг — GitHub Pages (публичный репозиторий), сборка и деплой — GitHub Actions по пушу в `main`.
 
