@@ -55,6 +55,44 @@ button {
     color: var(--wl-hint);
 }
 
+/* Full-height column, so the fallback main button sits at the bottom even on short screens. */
+.wl-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.wl-content {
+    flex: 1;
+}
+
+/* In-page stand-ins for Telegram's BackButton and MainButton (outside Telegram only). */
+.wl-back-button {
+    align-self: flex-start;
+    margin-top: 0.75rem;
+    padding: 0.25rem 0;
+    background: none;
+    color: var(--wl-link);
+    cursor: pointer;
+}
+
+.wl-main-button {
+    position: sticky;
+    bottom: 0.75rem;
+    margin: 0.75rem 0;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    /* Matches the muted colors js/telegram-buttons.js gives a disabled native MainButton. */
+    .wl-main-button:disabled {
+        background-color: var(--wl-secondary-bg);
+        color: var(--wl-hint);
+        cursor: default;
+    }
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }

@@ -1,0 +1,44 @@
+@* The screen's primary action: Telegram's MainButton inside Telegram,
+   an in-page button at the bottom of the layout outside it. Hidden when the screen goes away. *@
+@implements IAsyncDisposable
+@inject TelegramWebApp Telegram
+@inject TelegramButtons Buttons
+
+@if (!Telegram.IsInsideTelegram)
+{
+    <SectionContent SectionName="@ButtonSections.Main">
+        <button type="button" class="wl-main-button" disabled="@(!Enabled)" @onclick="OnClick">@Text</button>
+    </SectionContent>
+}
+
+@code {
+    // Telegram rejects an empty text or one longer than 64 characters.
+    private const int MaxTextLength = 64;
+
+    [Parameter, EditorRequired]
+    public string Text { get; set; } = "";
+
+    [Parameter]
+    public bool Enabled { get; set; } = true;
+
+    [Parameter, EditorRequired]
+    public EventCallback OnClick { get; set; }
+
+    private TelegramMainButton? native;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Text);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(Text.Trim().Length, MaxTextLength);
+
+        if (!Telegram.IsInsideTelegram)
+        {
+            return;
+        }
+
+        native ??= Buttons.CreateMainButton(() => OnClick.InvokeAsync());
+        await native.ShowAsync(Text, Enabled);
+    }
+
+    public ValueTask DisposeAsync() => native?.DisposeAsync() ?? ValueTask.CompletedTask;
+}
