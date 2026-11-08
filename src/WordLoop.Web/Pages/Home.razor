@@ -1,7 +1,18 @@
 ﻿@page "/"
+@inject TelegramWebApp Telegram
 
 <PageTitle>WordLoop</PageTitle>
 
 <h1>WordLoop</h1>
 
-<p>Скоро здесь будут повторения на сегодня.</p>
+@if (Telegram.User is { } user)
+{
+    <p>Привет, @user.DisplayName!</p>
+    <p class="hint">Telegram ID: @user.Id</p>
+}
+else
+{
+    <p>Откройте приложение в Telegram, чтобы прогресс сохранялся.</p>
+}
+
+<p class="hint">Скоро здесь будут повторения на сегодня.</p>
