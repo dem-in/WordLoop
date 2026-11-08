@@ -42,6 +42,11 @@ a {
     color: var(--wl-link);
 }
 
+/* FocusOnNavigate focuses the page's h1 for screen readers; the outline is noise for sighted users. */
+h1:focus {
+    outline: none;
+}
+
 button {
     background-color: var(--wl-button);
     color: var(--wl-button-text);
