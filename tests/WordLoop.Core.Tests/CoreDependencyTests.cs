@@ -24,4 +24,24 @@ public class CoreDependencyTests
 
         Assert.Empty(forbidden);
     }
+
+    [Fact]
+    public void CorePublicApi_DoesNotExposeSchedulingLibraryTypes()
+    {
+        var core = Assembly.Load("WordLoop.Core");
+        const BindingFlags members = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
+
+        var exposed = core.GetExportedTypes()
+            .SelectMany(type => new[] { type.BaseType }
+                .Concat(type.GetInterfaces())
+                .Concat(type.GetConstructors().SelectMany(c => c.GetParameters()).Select(p => p.ParameterType))
+                .Concat(type.GetMethods(members).SelectMany(m => m.GetParameters().Select(p => p.ParameterType).Append(m.ReturnType)))
+                .Concat(type.GetProperties(members).Select(p => p.PropertyType))
+                .Concat(type.GetFields(members).Select(f => f.FieldType))
+                .Where(t => t?.Assembly.GetName().Name == "FSRS.Core")
+                .Select(t => $"{type.FullName} → {t!.FullName}"))
+            .ToList();
+
+        Assert.Empty(exposed);
+    }
 }
