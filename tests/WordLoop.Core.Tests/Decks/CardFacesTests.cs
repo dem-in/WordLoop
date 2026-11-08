@@ -70,9 +70,10 @@ public class CardFacesTests
     }
 
     [Fact]
-    public void Front_UnknownPartOfSpeech_FallsBackToCode()
+    public void Front_UnknownPartOfSpeech_Throws()
     {
-        Assert.Equal("xyz", CardFaces.Front(MakeCard(pos: "xyz")).PartOfSpeech);
+        // An unknown code is a deck contract violation (spec 5.2), not something to display.
+        Assert.Throws<ArgumentException>(() => CardFaces.Front(MakeCard(pos: "xyz")));
     }
 
     [Fact]

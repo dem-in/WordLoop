@@ -9,33 +9,12 @@ public sealed record CardBack(string Translations, string? Ipa, string ExampleEn
 /// <summary>Turns a <see cref="Card"/> into what the review screen displays.</summary>
 public static class CardFaces
 {
-    // Russian abbreviations for the part-of-speech codes listed in spec 4.2.
-    private static readonly Dictionary<string, string> PartOfSpeechLabels = new(StringComparer.Ordinal)
-    {
-        ["n"] = "сущ.",
-        ["v"] = "гл.",
-        ["adj"] = "прил.",
-        ["adv"] = "нареч.",
-        ["prep"] = "предл.",
-        ["pron"] = "мест.",
-        ["det"] = "опред.",
-        ["conj"] = "союз",
-        ["num"] = "числ.",
-        ["exclam"] = "межд.",
-        ["modal"] = "мод. гл.",
-        ["aux"] = "вспом. гл.",
-        ["phr"] = "фраз. гл.",
-    };
-
+    /// <exception cref="ArgumentException">The card's part-of-speech code is not in <see cref="PartsOfSpeech"/>.</exception>
     public static CardFront Front(Card card) =>
-        new(card.Headword, PartOfSpeechLabel(card.Pos), NullIfBlank(card.Pattern));
+        new(card.Headword, PartsOfSpeech.Label(card.Pos), NullIfBlank(card.Pattern));
 
     public static CardBack Back(Card card) =>
         new(string.Join(", ", card.Translations), NullIfBlank(card.Ipa), card.Example.En, card.Example.Ru);
-
-    /// <summary>Russian abbreviation of a part-of-speech code; an unknown code is shown as is.</summary>
-    public static string PartOfSpeechLabel(string pos) =>
-        PartOfSpeechLabels.TryGetValue(pos, out var label) ? label : pos;
 
     private static string? NullIfBlank(string? value) =>
         string.IsNullOrWhiteSpace(value) ? null : value;
