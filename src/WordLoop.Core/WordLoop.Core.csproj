@@ -5,4 +5,9 @@
     <AdditionalFiles Include="BannedSymbols.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Hidden behind IScheduler: compile assets do not flow to Web, the runtime DLL does. -->
+    <PackageReference Include="FSRS.Core" Version="1.0.7" PrivateAssets="compile" />
+  </ItemGroup>
+
 </Project>
