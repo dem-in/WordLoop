@@ -1,0 +1,6 @@
+P:System.DateTime.Now;Use an injected TimeProvider (see UtcClock); storage and Core are UTC-only
+P:System.DateTime.UtcNow;Use an injected TimeProvider (see UtcClock)
+P:System.DateTime.Today;Use an injected TimeProvider (see UtcClock)
+P:System.DateTimeOffset.Now;Use an injected TimeProvider (see UtcClock)
+P:System.DateTimeOffset.UtcNow;Use an injected TimeProvider (see UtcClock)
+M:System.Random.#ctor;Randomness must be seeded (user id) so that devices build identical queues
