@@ -1,3 +1,60 @@
+/* Theme: Telegram sets --tg-theme-* (and updates them on theme change);
+   outside Telegram the neutral fallbacks below follow the OS light/dark preference. */
+:root {
+    color-scheme: light dark;
+    --wl-bg: var(--tg-theme-bg-color, #ffffff);
+    --wl-text: var(--tg-theme-text-color, #1f1f1f);
+    --wl-hint: var(--tg-theme-hint-color, #8a8a8a);
+    --wl-link: var(--tg-theme-link-color, #2a7ab8);
+    --wl-button: var(--tg-theme-button-color, #2a7ab8);
+    --wl-button-text: var(--tg-theme-button-text-color, #ffffff);
+    --wl-secondary-bg: var(--tg-theme-secondary-bg-color, #f2f2f2);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --wl-bg: var(--tg-theme-bg-color, #1c1c1e);
+        --wl-text: var(--tg-theme-text-color, #ececec);
+        --wl-hint: var(--tg-theme-hint-color, #8e8e93);
+        --wl-link: var(--tg-theme-link-color, #64a8e0);
+        --wl-button: var(--tg-theme-button-color, #3a8fd0);
+        --wl-button-text: var(--tg-theme-button-text-color, #ffffff);
+        --wl-secondary-bg: var(--tg-theme-secondary-bg-color, #2c2c2e);
+    }
+}
+
+/* Set by js/telegram.js from WebApp.colorScheme; overrides the OS preference inside Telegram. */
+:root[data-color-scheme="light"] { color-scheme: light; }
+:root[data-color-scheme="dark"] { color-scheme: dark; }
+
+html, body {
+    margin: 0;
+    background-color: var(--wl-bg);
+    color: var(--wl-text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    padding: 0 1rem;
+}
+
+a {
+    color: var(--wl-link);
+}
+
+button {
+    background-color: var(--wl-button);
+    color: var(--wl-button-text);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    font: inherit;
+}
+
+.hint {
+    color: var(--wl-hint);
+}
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
