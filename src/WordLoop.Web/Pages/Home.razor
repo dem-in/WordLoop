@@ -10,6 +10,10 @@
     <p>Привет, @user.DisplayName!</p>
     <p class="hint">Telegram ID: @user.Id</p>
 }
+else if (Telegram.IsInsideTelegram)
+{
+    <p>Telegram не передал данные пользователя. Откройте приложение через кнопку меню бота.</p>
+}
 else
 {
     <p>Откройте приложение в Telegram, чтобы прогресс сохранялся.</p>

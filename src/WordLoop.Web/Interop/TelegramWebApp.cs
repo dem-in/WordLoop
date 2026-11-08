@@ -13,18 +13,15 @@ public sealed class TelegramWebApp(IJSRuntime js)
 {
     public bool IsInsideTelegram { get; private set; }
 
-    /// <summary>The current Telegram user; null outside Telegram.</summary>
+    /// <summary>The current Telegram user; null outside Telegram or when Telegram passed no initData.</summary>
     public UserProfile? User { get; private set; }
 
     public async Task InitializeAsync()
     {
         await using var module = await js.InvokeAsync<IJSObjectReference>("import", "./js/telegram.js");
 
+        // Independent checks: inside Telegram the user may still be missing (empty initData).
         IsInsideTelegram = await module.InvokeAsync<bool>("init");
-        if (!IsInsideTelegram)
-        {
-            return;
-        }
 
         var json = await module.InvokeAsync<string?>("getUserJson");
         if (json is null)
