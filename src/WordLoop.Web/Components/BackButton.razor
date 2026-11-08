@@ -1,0 +1,32 @@
+@* Back navigation for the current screen: Telegram's BackButton inside Telegram,
+   an in-page button at the top of the layout outside it. Hidden when the screen goes away. *@
+@implements IAsyncDisposable
+@inject TelegramWebApp Telegram
+@inject TelegramButtons Buttons
+
+@if (!Telegram.IsInsideTelegram)
+{
+    <SectionContent SectionName="@ButtonSections.Back">
+        <button type="button" class="wl-back-button" @onclick="OnClick">← Назад</button>
+    </SectionContent>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public EventCallback OnClick { get; set; }
+
+    private TelegramBackButton? native;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Telegram.IsInsideTelegram)
+        {
+            return;
+        }
+
+        native = Buttons.CreateBackButton(() => OnClick.InvokeAsync());
+        await native.ShowAsync();
+    }
+
+    public ValueTask DisposeAsync() => native?.DisposeAsync() ?? ValueTask.CompletedTask;
+}

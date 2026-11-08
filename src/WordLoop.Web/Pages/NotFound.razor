@@ -1,5 +1,12 @@
-﻿@page "/not-found"
+@page "/not-found"
 @layout MainLayout
+@inject NavigationManager Navigation
+
+<BackButton OnClick="GoHome" />
 
 <h3>Страница не найдена</h3>
 <p><a href="">На главную</a></p>
+
+@code {
+    private void GoHome() => Navigation.NavigateTo("");
+}

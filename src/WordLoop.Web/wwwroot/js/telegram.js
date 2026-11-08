@@ -6,7 +6,7 @@
 // "Inside Telegram" and "has a user" are separate checks: Telegram may launch the app
 // with empty initData (e.g. from a keyboard button), and it still needs ready()/expand()
 // and theme handling. Outside Telegram the SDK still defines WebApp, with platform "unknown".
-function webApp() {
+export function webApp() {
     const app = window.Telegram?.WebApp;
     return app && app.platform && app.platform !== "unknown" ? app : null;
 }

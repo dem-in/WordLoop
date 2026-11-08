@@ -1,3 +1,10 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 
-@Body
+@* Outside Telegram, BackButton/MainButton components render their fallback buttons here. *@
+<div class="wl-layout">
+    <SectionOutlet SectionName="@ButtonSections.Back" />
+    <div class="wl-content">
+        @Body
+    </div>
+    <SectionOutlet SectionName="@ButtonSections.Main" />
+</div>
