@@ -1,0 +1,61 @@
+@page "/review"
+@using WordLoop.Core.Decks
+@inject NavigationManager Navigation
+
+<PageTitle>Повторение — WordLoop</PageTitle>
+
+<BackButton OnClick="@(() => Navigation.NavigateTo(""))" />
+
+<article class="wl-card">
+    <div class="wl-card-front">
+        <h1 class="wl-headword">@Front.Headword</h1>
+        <div class="wl-pos">@Front.PartOfSpeech</div>
+        @if (Front.Pattern is { } pattern)
+        {
+            <div class="wl-pattern">@pattern</div>
+        }
+    </div>
+
+    @if (revealed)
+    {
+        <div class="wl-card-back">
+            <div class="wl-translations">@Back.Translations</div>
+            @if (Back.Ipa is { } ipa)
+            {
+                <div class="wl-ipa">@ipa</div>
+            }
+            <p class="wl-example">
+                <span class="wl-example-en">@Back.ExampleEn</span>
+                <span class="wl-example-ru">@Back.ExampleRu</span>
+            </p>
+        </div>
+    }
+</article>
+
+@if (revealed)
+{
+    @* TEMPORARY (#7): "Дальше" walks the hard-coded cards in a loop so all of them can be checked by eye.
+       Replaced by the four grade buttons in #8. *@
+    <MainButton Text="Дальше" OnClick="Next" />
+}
+else
+{
+    <MainButton Text="Показать ответ" OnClick="Reveal" />
+}
+
+@code {
+    private int index;
+    private bool revealed;
+
+    private Card Card => SampleCards.All[index];
+    private CardFront Front => CardFaces.Front(Card);
+    private CardBack Back => CardFaces.Back(Card);
+
+    private void Reveal() => revealed = true;
+
+    private void Next()
+    {
+        index = (index + 1) % SampleCards.All.Count;
+        revealed = false;
+    }
+}

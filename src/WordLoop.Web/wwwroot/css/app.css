@@ -42,6 +42,11 @@ a {
     color: var(--wl-link);
 }
 
+/* FocusOnNavigate focuses the page's h1 for screen readers; the outline is noise for sighted users. */
+h1:focus {
+    outline: none;
+}
+
 button {
     background-color: var(--wl-button);
     color: var(--wl-button-text);
@@ -92,6 +97,64 @@ button {
         color: var(--wl-hint);
         cursor: default;
     }
+
+/* Review card (spec 4.1). Colors come only from the --wl-* theme tokens. */
+.wl-card {
+    margin-top: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    border-radius: 0.75rem;
+    background-color: var(--wl-secondary-bg);
+    text-align: center;
+}
+
+.wl-headword {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.wl-pos {
+    margin-top: 0.25rem;
+    color: var(--wl-hint);
+    font-style: italic;
+}
+
+.wl-pattern {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.wl-card-back {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid color-mix(in srgb, var(--wl-hint) 35%, transparent);
+}
+
+.wl-translations {
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.wl-ipa {
+    margin-top: 0.35rem;
+    color: var(--wl-hint);
+}
+
+.wl-example {
+    margin: 1rem 0 0;
+}
+
+.wl-example-en {
+    display: block;
+}
+
+.wl-example-ru {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--wl-hint);
+}
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
